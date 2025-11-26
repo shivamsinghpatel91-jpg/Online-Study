@@ -1,0 +1,341 @@
+<!--
+Kisan Borewell & Pumps Pvt. Ltd. - Single-file demo website
+Instructions:
+1. Save this file as `index.html` and open in a browser to preview.
+2. Replace placeholder images/videos (in /assets or direct URLs) with your own photos and videos.
+3. Replace contact details, logo, and map embed with real values.
+4. To host: upload to GitHub Pages, Netlify, or any static host.
+
+This file contains: responsive header, hero (image/video), services, projects gallery with lightbox, products section, contact form (client-side only), and footer.
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kisan Borewell & Pumps Pvt. Ltd.</title>
+  <meta name="description" content="Borewell drilling, submersible pumps, installation & maintenance">
+  <style>
+    :root{--brand:#0b71b7;--accent:#2fa84f;--muted:#666}
+    *{box-sizing:border-box}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;line-height:1.5;color:#222;margin:0}
+    a{color:var(--brand);text-decoration:none}
+    header{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;background:#fff;box-shadow:0 2px 6px rgba(2,12,27,0.06);position:sticky;top:0;z-index:40}
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo img{height:56px;width:56px;object-fit:cover;border-radius:8px}
+    .logo h1{font-size:20px;margin:0}
+    nav ul{list-style:none;display:flex;gap:16px;margin:0;padding:0}
+    .cta{background:var(--accent);color:white;padding:10px 14px;border-radius:8px}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr;gap:18px;align-items:center;padding:36px 24px}
+    .hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:22px}
+    .hero .headline{font-size:28px;margin:0}
+    .hero p{color:var(--muted);margin:0 0 8px}
+    .hero .actions{display:flex;gap:12px}
+    .btn{padding:10px 14px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);cursor:pointer}
+    .btn-primary{background:var(--brand);color:#fff;border:none}
+
+    /* Video / media */
+    .media{border-radius:12px;overflow:hidden;border:1px solid rgba(2,12,27,0.06)}
+    .media video, .media img{width:100%;height:100%;display:block}
+
+    /* Sections */
+    section{padding:30px 20px}
+    .container{max-width:1100px;margin:0 auto}
+    .grid{display:grid;gap:18px}
+    .grid-3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .card{background:#fff;padding:16px;border-radius:10px;box-shadow:0 6px 18px rgba(2,12,27,0.04)}
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+    .gallery img{width:100%;height:160px;object-fit:cover;border-radius:8px;cursor:pointer}
+
+    /* Contact */
+    .contact-grid{display:grid;grid-template-columns:1fr;gap:16px}
+    .input, textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #ddd}
+    .row{display:flex;gap:12px}
+    .row .col{flex:1}
+
+    footer{background:#0b2c3d;color:#fff;padding:22px}
+
+    /* Responsive */
+    @media(min-width:900px){
+      .hero-inner{grid-template-columns:1fr 480px;align-items:center}
+      .hero .headline{font-size:36px}
+      .contact-grid{grid-template-columns:1fr 360px}
+    }
+
+    /* Lightbox */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;padding:20px;z-index:80}
+    .lightbox img, .lightbox video{max-width:95%;max-height:85%;border-radius:8px}
+    .lightbox .close{position:absolute;right:18px;top:18px;color:white;font-size:20px;cursor:pointer}
+
+    /* small helper */
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <!-- Replace with your logo file -->
+    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><rect width='120' height='120' rx='16' fill='%230b71b7'/><text x='50%' y='55%' fill='white' font-size='40' font-family='Arial' text-anchor='middle' alignment-baseline='middle'>KB</text></svg>" alt="Kisan Borewell Logo">
+    <div>
+      <h1>Kisan Borewell &amp; Pumps Pvt. Ltd.</h1>
+      <div class="muted">Reliable borewell drilling & pump solutions</div>
+    </div>
+  </div>
+
+  <nav>
+    <ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div style="display:flex;gap:10px;align-items:center">
+    <a class="muted" href="tel:+911234567890">+91 12345 67890</a>
+    <a class="cta" href="#contact">Enquire Now</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner container">
+    <div>
+      <h2 class="headline">Expert Borewell Drilling & Submersible Pump Services</h2>
+      <p>20+ years experience in borewell drilling, pump installation, and maintenance across rural & agricultural areas. We provide end-to-end water solutions for farmers and industries.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#contact">Get a Free Quote</a>
+        <a class="btn" href="#projects">View Projects</a>
+      </div>
+
+      <div style="margin-top:18px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:520px">
+        <div class="card">
+          <strong>Fast Drilling</strong>
+          <div class="muted" style="font-size:13px">High-power rigs & experienced crew</div>
+        </div>
+        <div class="card">
+          <strong>Genuine Parts</strong>
+          <div class="muted" style="font-size:13px">Top brand pumps & warranty support</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="media">
+      <!-- Replace with a short background video of drilling or an image -->
+      <video controls playsinline poster="" style="width:100%;height:100%">
+        <source src="assets/hero-drilling.mp4" type="video/mp4">
+        <!-- Fallback image -->
+        Your browser does not support the video tag. Replace assets/hero-drilling.mp4 with your own video or remove the <video> and use <img>.
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <h3>Our Services</h3>
+    <p class="muted">Comprehensive water & drilling services — tailored for agriculture and industry.</p>
+    <div class="grid grid-3" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:14px">
+
+      <div class="card">
+        <h4>Borewell Drilling</h4>
+        <p class="muted">Diamond & percussion drilling for deep aquifers. Site survey, drilling, and casing included.</p>
+      </div>
+
+      <div class="card">
+        <h4>Submersible Pump Installation</h4>
+        <p class="muted">Supply & installation of submersible pumps with guarantee and onsite support.</p>
+      </div>
+
+      <div class="card">
+        <h4>Pump Repair & Maintenance</h4>
+        <p class="muted">Regular servicing, motor rewinding, impeller replacement, and troubleshooting.</p>
+      </div>
+
+      <div class="card">
+        <h4>Water Testing</h4>
+        <p class="muted">Water quality analysis and recommendations to protect equipment and crops.</p>
+      </div>
+
+      <div class="card">
+        <h4>Pipeline & Motor Works</h4>
+        <p class="muted">End-to-end pipeline installation and electrical motor works.</p>
+      </div>
+
+      <div class="card">
+        <h4>Consultation & Support</h4>
+        <p class="muted">Project planning, cost estimation & govt documentation support.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS / GALLERY -->
+<section id="projects">
+  <div class="container">
+    <h3>Projects & Gallery</h3>
+    <p class="muted">Photos and short clips from our recent jobs. Click to enlarge.</p>
+
+    <div class="gallery" style="margin-top:14px">
+      <!-- Replace these src with real image paths -->
+      <img src="assets/project1.jpg" alt="Project 1" data-type="image">
+      <img src="assets/project2.jpg" alt="Project 2" data-type="image">
+      <img src="assets/project3.jpg" alt="Project 3" data-type="image">
+      <img src="assets/project4.jpg" alt="Project 4" data-type="image">
+      <img src="assets/project5.jpg" alt="Project 5" data-type="image">
+      <img src="assets/project6.jpg" alt="Project 6" data-type="image">
+    </div>
+
+    <div style="margin-top:18px">
+      <h4>Short Videos</h4>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:10px">
+        <div class="card media" style="height:180px">
+          <video controls playsinline src="assets/clip1.mp4" style="height:100%;width:100%"></video>
+        </div>
+        <div class="card media" style="height:180px">
+          <video controls playsinline src="assets/clip2.mp4" style="height:100%;width:100%"></video>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="container">
+    <h3>Products</h3>
+    <p class="muted">We offer select pumps and motors from trusted manufacturers.</p>
+    <div class="grid grid-3" style="margin-top:12px">
+      <div class="card">
+        <strong>Model: KP-2HP</strong>
+        <div class="muted">Submersible pump — 2 HP, stainless steel, 3-phase.</div>
+      </div>
+      <div class="card">
+        <strong>Model: KP-3HP</strong>
+        <div class="muted">Submersible pump — 3 HP, corrosion-resistant, high-efficiency.</div>
+      </div>
+      <div class="card">
+        <strong>Control Panel</strong>
+        <div class="muted">Starter panel with overload protection & digital display.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <h3>Contact Us</h3>
+    <div style="display:grid;grid-template-columns:1fr;gap:16px;margin-top:12px">
+      <div class="card contact-grid">
+        <form id="contactForm">
+          <div style="display:grid;gap:10px">
+            <input class="input" type="text" id="name" placeholder="Your name" required>
+            <input class="input" type="tel" id="phone" placeholder="Mobile number" required>
+            <input class="input" type="email" id="email" placeholder="Email (optional)">
+            <textarea id="message" rows="4" placeholder="Tell us about your project (location, depth, issue)..." required></textarea>
+            <div style="display:flex;gap:8px;align-items:center">
+              <button type="submit" class="btn btn-primary">Send Enquiry</button>
+              <!-- WhatsApp quick link (replace phone) -->
+              <a class="btn" id="whatsappLink" href="https://wa.me/911234567890?text=Hello%20Kisan%20Borewell%20I%20need%20a%20quote" target="_blank">WhatsApp</a>
+            </div>
+            <div id="formMsg" class="muted" style="font-size:13px"></div>
+          </div>
+        </form>
+      </div>
+
+      <div class="card" style="min-height:160px">
+        <strong>Office</strong>
+        <div class="muted">Village/City, District, State - ZIP</div>
+        <div style="margin-top:8px">Phone: <a href="tel:+911234567890">+91 12345 67890</a></div>
+        <div style="margin-top:6px">Email: <a href="mailto:info@kisanborewell.com">info@kisanborewell.com</a></div>
+        <div style="margin-top:12px">Location:</div>
+        <!-- Replace with your Google Maps iframe embed -->
+        <div style="margin-top:8px;border-radius:8px;overflow:hidden">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18" width="100%" height="200" style="border:0;" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+    <div>
+      <strong>Kisan Borewell &amp; Pumps Pvt. Ltd.</strong>
+      <div class="muted" style="font-size:13px">© <span id="year"></span> All rights reserved.</div>
+    </div>
+
+    <div class="muted" style="font-size:13px">Follow us: <a href="#">Facebook</a> • <a href="#">YouTube</a></div>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <div class="close" id="lightboxClose">✕</div>
+  <img id="lightboxImg" src="" alt="">
+  <video id="lightboxVideo" controls style="display:none"></video>
+</div>
+
+<script>
+  // Fill year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Simple gallery lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightboxImg');
+  const lbVideo = document.getElementById('lightboxVideo');
+  const closeBtn = document.getElementById('lightboxClose');
+
+  document.querySelectorAll('.gallery img').forEach(img=>{
+    img.addEventListener('click', ()=>{
+      const src = img.getAttribute('src');
+      const type = img.dataset.type || 'image';
+      if(type==='image'){
+        lbVideo.style.display='none'; lbVideo.pause();
+        lbImg.style.display='block'; lbImg.src = src;
+      } else {
+        lbImg.style.display='none'; lbVideo.style.display='block'; lbVideo.src = src; lbVideo.play();
+      }
+      lightbox.style.display='flex';
+    })
+  })
+  closeBtn.addEventListener('click', ()=>{lightbox.style.display='none'; lbVideo.pause();});
+  lightbox.addEventListener('click',(e)=>{ if(e.target===lightbox) { lightbox.style.display='none'; lbVideo.pause(); } });
+
+  // Simple form handling (client-side) — replace with server endpoint when available
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    const msgWrap = document.getElementById('formMsg');
+
+    if(!name || !phone || !message){ msgWrap.textContent='Please fill required fields.'; return; }
+
+    // For demo: create a mailto link
+    const mailto = `mailto:info@kisanborewell.com?subject=${encodeURIComponent('Website Enquiry from '+name)}&body=${encodeURIComponent('Name: '+name+'\nPhone: '+phone+'\nEmail: '+email+'\n\nMessage:\n'+message)}`;
+    window.location.href = mailto;
+  });
+
+  // Optional: dynamically set WhatsApp with country code
+  const whatsappLink = document.getElementById('whatsappLink');
+  // Replace with your phone number including country code
+  const phoneNumber = '911234567890';
+  whatsappLink.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent('Hello Kisan Borewell, I need a quote for my site.')}`;
+
+</script>
+
+</body>
+</html>
